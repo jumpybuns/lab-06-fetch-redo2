@@ -8,7 +8,7 @@ export default class Boolean extends Component {
                 ?
                 <span style={{color: "yellowgreen"}}>Good Song</span>
                 :
-                <span style={{color: "red"}}>Great Song</span>
+                <span style={{color: "blue"}}>Great Song</span>
                 }
             </div>
         )

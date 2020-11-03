@@ -5,6 +5,7 @@ export default class Header extends Component {
         return (
             <div>
                 <h1 className="header">Shiela E. Gallery</h1>
+                <img src='../shiela.png' alt="she" width = '400'/>
             </div>
         )
     }
