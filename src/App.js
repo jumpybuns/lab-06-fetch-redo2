@@ -8,6 +8,7 @@ import {
 import { Link } from 'react-router-dom';
 import ShielaPage from './ShielaPage.js';
 import CreatePage from './CreatePage.js';
+import DetailsPage from './DetailsPage.js';
 
 
 export default class App extends Component {
@@ -17,7 +18,9 @@ export default class App extends Component {
      
           <Router>
                 <ul >
-                    <Link className="create" to="/create">Add A Song</Link>
+                    <Link className="createLink" to="/create">Add A Song</Link>
+                    <Link className="updateLink" to="/details">Update A Song</Link>
+
                 </ul>
           <Switch>
             <Route
@@ -27,6 +30,10 @@ export default class App extends Component {
             <Route
             path="/create"
             exact render={(routerProps) => <CreatePage {...routerProps} />}
+          />
+            <Route
+            path="/details/:id"
+            exact render={(routerProps) => <DetailsPage {...routerProps} />}
           />
           </Switch>
         </Router>
