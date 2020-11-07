@@ -47,7 +47,7 @@ export default class CreatePage extends Component {
             <div className="forms" >
                 <form onSubmit={this.handleSubmit}>
                     <label>
-                        Artist Alias
+                        Artist Name
                         <input onChange={e => this.setState({ alias: e.target.value})} type="text"/>
                     </label>
                     <label>
@@ -60,13 +60,9 @@ export default class CreatePage extends Component {
                     </label>
                     <label>
                         Song Quality
-                        <select onChange={this.handleBooleanChange}>
-                            
-                                <option value={true}>True</option>
-                                <option value={false}>False</option>
-
-
-                            
+                        <select onChange={this.handleBooleanChange}>                          
+                                <option value={true}>Good</option>
+                                <option value={false}>Great</option>                           
                         </select>
                     </label>
                     <label>

@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import { fetchCategories, 
-            updateSong,
-            fetchSong } from './Fetches.js';
+import request from 'superagent';
+import { updateSong } from './Fetches.js';
 
 const userFromBeyond = {
     userId: 1
@@ -11,29 +10,18 @@ const userFromBeyond = {
 export default class DetailsPage extends Component {
 
     state = {
-        albums: [],
-        song: '',
+        category: [],
+        alias: '',
+        name: '',
         year: '',
-        quality: true,
-        category_id: ''
+        alive: true,
+        category_id: 1
        
 
     }
-
     componentDidMount = async () => {
-        const albums = await fetchCategories();
-        const song = await fetchSong(this.props.match.params.id);
-        const songAsAString = song.category
-        const matchingCategory = albums.find((category) => {
-            return category.name === songAsAString
-        });    
-    
-        this.setState({
-            songs: albums,
-            category_id: matchingCategory.id,
-            song: song.name_id,
-            user_id: song.id
-        });
+        const response = await request.get(`https://safe-beyond-79072.herokuapp.com/shielas`);
+        this.setState({ category: response.body });
     }
 
     handleSubmit = async (e) => {
@@ -42,54 +30,60 @@ export default class DetailsPage extends Component {
         await updateSong(
             this.props.match.params.id,
             {   
-                year_id: this.state.year,
+                alias: this.state.alias,
+                name: this.state.name,
                 category_id: this.state.category_id,
-                name_id: this.state.name,
+                year: this.state.year,
+                alive: this.state.alive,
                 user_id: userFromBeyond.userId
             }
         );
         this.props.history.push('/');
     }
 
+
+    handleBooleanChange = (e) => {
+        this.setState({ alive: e.target.value });
+    }
+
     handleChange = (e) => {
-        this.setState({ category_id: e.target.value});
+        this.setState({ category_id: e.target.value });
     }
     render() {
         return (
             <div>
-
-                <h2>Update A Song</h2>
                 <form onSubmit={this.handleSubmit}>
                     <label>
-                        Year
-                        <input 
-                        value={this.state.year}
-                        onChange={e => this.setState({ year: e.target.value})} 
-                        type="number" />
+                        Artist Name
+                        <input value={this.state.alias} onChange={e => this.setState({ alias: e.target.value})} type="text"/>
                     </label>
                     <label>
                         Song Name
-                        <input 
-                        value={this.state.name_id}
-                        onChange={e => this.setState({ name: e.target.value})} 
-                        type="text" />
+                        <input value={this.state.name}  onChange={e => this.setState({ name: e.target.value})} type="text"/>
+                    </label>
+                    <label>
+                        Song Year
+                        <input value={this.state.year} onChange={e => this.setState({ year: e.target.value})} type="number"/>
+                    </label>
+                    <label>
+                        Song Quality
+                        <select value={this.state.alive}  onChange={this.handleBooleanChange}>                          
+                                <option value={true}>Good</option>
+                                <option value={false}>Great</option>                           
+                        </select>
                     </label>
                     <label>
                         Album Name
-                        <input 
-                        value={this.state.category_id}
-                        onChange={e => this.setState({ category: e.target.value})} 
-                        type="text" />
+                        <select onChange={this.handleChange}>
+                            {
+                                this.state.category.map(cate => 
+                                <option key={cate.id} value={cate.id}>{cate.category}</option>)
+
+                            }
+                        </select>
                     </label>
-                    {/* <label>
-                        Song Quality
-                        <input 
-                        value={this.state.year}
-                        onChange={e => this.setState({ year: e.target.value})} 
-                        type="boolean" />
-                    </label> */}
                     <button>Submit</button>
-                </form>    
+                </form>
             </div>
         )
     }

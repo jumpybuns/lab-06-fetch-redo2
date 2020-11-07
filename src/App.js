@@ -17,9 +17,9 @@ export default class App extends Component {
       <div className="App">
      
           <Router>
-                <ul >
+                <ul >                  
+                    <Link className="Home" to="/">Home</Link>
                     <Link className="createLink" to="/create">Add A Song</Link>
-                    <Link className="updateLink" to="/details">Update A Song</Link>
 
                 </ul>
           <Switch>
