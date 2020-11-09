@@ -1,13 +1,17 @@
 import React, { Component } from 'react'
 import request from 'superagent';
+import { createSong } from './Fetches.js';
+import shiela from './yoyo.jpg';
 
-const userFromBeyond = {
+    const userFromBeyond = {
     usedId: 1
 };
 
 export default class CreatePage extends Component {
     state = {
-        category: []
+        category: [],
+        alive: true,
+        category_id: 1
     }
 
     componentDidMount = async () => {
@@ -17,19 +21,15 @@ export default class CreatePage extends Component {
 
     handleSubmit = async  (e) => {
         e.preventDefault ();
-    
-        const newShiela = {
-            alias_id: this.state.alias,
-            name_id: this.state.name,
-            alive_id: this.state.alive,
-            category_id: this.state.category_id,
-            year_id: this.state.year,
-            user_id: this.userFromBeyond.usedId
-        };
 
-    await request
-    .post(`https://safe-beyond-79072.herokuapp.com/shielas`)
-    .send(newShiela)
+    await createSong ({
+            alias: this.state.alias,
+            name: this.state.name,
+            category_id: this.state.category_id,
+            year: this.state.year,
+            alive: this.state.alive,
+            user_id: userFromBeyond.usedId
+    });
 
     this.props.history.push('/');
     };
@@ -37,22 +37,36 @@ export default class CreatePage extends Component {
     handleChange = (e) => {
         this.setState({ category_id: e.target.value });
     }
+
+    handleBooleanChange = (e) => {
+        this.setState({ alive: e.target.value });
+    }
+
     render() {
+        console.log(this.state.category_id)
         return (
             <div className="forms" >
-                {/* <form onSubmit={this.handleSubmit}>
+                <img src={shiela} width='200' alt="pic"/>
+                <form onSubmit={this.handleSubmit}>
+                    <label className="label1">
+                        Artist Name
+                        <input className="input1" onChange={e => this.setState({ alias: e.target.value})} type="text"/>
+                    </label>
                     <label>
                         Song Name
                         <input onChange={e => this.setState({ name: e.target.value})} type="text"/>
                     </label>
                     <label>
                         Song Year
-                        <input onChange={e => this.setState({ year: e.target.value})} type="text"/>
+                        <input onChange={e => this.setState({ year: e.target.value})} type="number"/>
                     </label>
                     <label>
                         Song Quality
-                        <input onChange={e => this.setState({ alive: e.target.value})} type="text"/>
-                    </label> */}
+                        <select onChange={this.handleBooleanChange}>                          
+                                <option value={true}>Good</option>
+                                <option value={false}>Great</option>                           
+                        </select>
+                    </label>
                     <label>
                         Album Name
                         <select onChange={this.handleChange}>
@@ -63,9 +77,12 @@ export default class CreatePage extends Component {
                             }
                         </select>
                     </label>
-                    {/* <button>Submit</button> */}
-                {/* </form>
-                 */}
+                    <button>Submit</button>
+                </form>
+                <div className="delete">
+                    <button>Delete</button>
+                </div>
+                
             </div>
         )
     }
