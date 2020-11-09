@@ -6,11 +6,19 @@ html {
 }
 
 
-
 .header {
   font-size: 60pt;
   color: rgb(103, 17, 184);
 }
+.home {
+  position: relative;
+  right: 80px;
+}
+.createlink {
+  position: relative;
+  left: 80px;
+}
+
 
 .shielas {
   display: grid;
@@ -28,9 +36,25 @@ h2 {
   margin-top: 5px;
   font-size: 18pt;
 }
+.alias{
+  font-size: 3rem;
+  font-stretch: expanded;
+}
+.category {
+  font-size: 1.8rem;
+}
+.name {
+  font-size: 1.5rem;
+
+}
+.alive {
+  font-size: 1.5rem;
+  color: rgb(243, 255, 132);
+}
+
 
 .year {
   margin-top: 0;
-  color: rgb(2, 91, 255);
+  color: rgb(243, 255, 132);
 }
 

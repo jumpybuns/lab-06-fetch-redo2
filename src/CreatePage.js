@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import request from 'superagent';
 import { createSong } from './Fetches.js';
+import shiela from './yoyo.jpg';
 
     const userFromBeyond = {
     usedId: 1
@@ -45,10 +46,11 @@ export default class CreatePage extends Component {
         console.log(this.state.category_id)
         return (
             <div className="forms" >
+                <img src={shiela} width='200' alt="pic"/>
                 <form onSubmit={this.handleSubmit}>
-                    <label>
+                    <label className="label1">
                         Artist Name
-                        <input onChange={e => this.setState({ alias: e.target.value})} type="text"/>
+                        <input className="input1" onChange={e => this.setState({ alias: e.target.value})} type="text"/>
                     </label>
                     <label>
                         Song Name
@@ -77,6 +79,9 @@ export default class CreatePage extends Component {
                     </label>
                     <button>Submit</button>
                 </form>
+                <div className="delete">
+                    <button>Delete</button>
+                </div>
                 
             </div>
         )

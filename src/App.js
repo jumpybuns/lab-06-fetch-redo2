@@ -11,6 +11,7 @@ import CreatePage from './CreatePage.js';
 import DetailsPage from './DetailsPage.js';
 
 
+
 export default class App extends Component {
   render() {
     return (
@@ -18,8 +19,8 @@ export default class App extends Component {
      
           <Router>
                 <ul >                  
-                    <Link className="Home" to="/">Home</Link>
-                    <Link className="createLink" to="/create">Add A Song</Link>
+                    <Link className="home" to="/">Home</Link>
+                    <Link className="createlink" to="/create">Add A Song</Link>
 
                 </ul>
           <Switch>

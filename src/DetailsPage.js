@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import request from 'superagent';
-import { updateSong } from './Fetches.js';
+import { updateSong, deleteSong } from './Fetches.js';
+import shiela2 from './shielap.jpg';
 
 const userFromBeyond = {
     userId: 1
@@ -41,6 +42,10 @@ export default class DetailsPage extends Component {
         this.props.history.push('/');
     }
 
+    handleDelete = async (e) => {
+        await deleteSong(this.props.match.params.id);
+        this.props.history.push('/');
+    }
 
     handleBooleanChange = (e) => {
         this.setState({ alive: e.target.value });
@@ -52,6 +57,7 @@ export default class DetailsPage extends Component {
     render() {
         return (
             <div>
+                <img src={shiela2} width='200' alt="pic"/>
                 <form onSubmit={this.handleSubmit}>
                     <label>
                         Artist Name
@@ -84,6 +90,7 @@ export default class DetailsPage extends Component {
                     </label>
                     <button>Submit</button>
                 </form>
+                <button onClick={this.handleDelete} className="delete-button">Delete Song</button>
             </div>
         )
     }
